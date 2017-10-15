@@ -1,0 +1,23 @@
+# J. Phys. B: At. Mol. Opt. Phys. 44 (2011) 122001
+# Molecular CH4 -> H2+ antiproton inisation cross section RATIO, in
+# unit of   CH4 -> CH4+ cross section *1000
+#
+#
+# Energy_(keV)    CH4_->_CH4+_CS*1000   exp_uncertainty_(1_sigma)
+1060      25    17
+901.6     12    13
+775.5     15    15
+677       4     12
+595.6     12    12
+527.9     8     11
+459.2     20    9
+392.3     20    10
+332.1     26    9
+268.2     30    10
+211.5     39    12
+166.6     23    13
+129.7     37    19
+101.5     47    20
+79.7      27    23
+61.8      59    35
+46.7      53    58

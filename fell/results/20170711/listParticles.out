@@ -1,0 +1,81 @@
+
+prBIDays main() start
+*********************
+
+
+listParticles()
+********************************************************************************
+list particles in the namespace RParticleList.cc
+
+dump atoms (line)
+---------------------
+Hydrogen    H    1     1   1.008e+00amu   0.0e   
+Carbon      C    6    12   1.200e+01amu   0.0e   
+Nitrogen    N    7    14   1.400e+01amu   0.0e   
+Oxygen      O    8    16   1.599e+01amu   0.0e   
+Neon       Ne   10    20   1.999e+01amu   0.0e   
+Argon      Ar   18    40   3.996e+01amu   0.0e   
+Krypton    Kr   36    84   8.391e+01amu   0.0e   
+Xenon      Xe   54   132   1.319e+02amu   0.0e   
+
+
+dump molecules
+--------------
+argon  Ar  Ar40  3.995e+01amu   0.0e   
+---------------------------------------------------
+  -> Argon      Ar   18    40   3.996e+01amu   0.0e   
+
+methane  CH4  C12-H1_4  1.604e+01amu   0.0e   
+---------------------------------------------------
+  -> Carbon      C    6    12   1.200e+01amu   0.0e   
+  -> Hydrogen    H    1     1   1.008e+00amu   0.0e   
+  -> Hydrogen    H    1     1   1.008e+00amu   0.0e   
+  -> Hydrogen    H    1     1   1.008e+00amu   0.0e   
+  -> Hydrogen    H    1     1   1.008e+00amu   0.0e   
+
+carbon_monoxide  CO  C12-O16  2.801e+01amu   0.0e   
+---------------------------------------------------
+  -> Carbon      C    6    12   1.200e+01amu   0.0e   
+  -> Oxygen      O    8    16   1.599e+01amu   0.0e   
+
+carbon_dioxide  CO2  C12-O16_2  4.401e+01amu   0.0e   
+---------------------------------------------------
+  -> Carbon      C    6    12   1.200e+01amu   0.0e   
+  -> Oxygen      O    8    16   1.599e+01amu   0.0e   
+  -> Oxygen      O    8    16   1.599e+01amu   0.0e   
+
+dihydrogen  H2  H1_2  2.016e+00amu   0.0e   
+---------------------------------------------------
+  -> Hydrogen    H    1     1   1.008e+00amu   0.0e   
+  -> Hydrogen    H    1     1   1.008e+00amu   0.0e   
+
+krypton  Kr  Kr84  8.380e+01amu   0.0e   
+---------------------------------------------------
+  -> Krypton    Kr   36    84   8.391e+01amu   0.0e   
+
+dinitrogen  N2  N14_2  2.801e+01amu   0.0e   
+---------------------------------------------------
+  -> Nitrogen    N    7    14   1.400e+01amu   0.0e   
+  -> Nitrogen    N    7    14   1.400e+01amu   0.0e   
+
+neon  Ne  Ne20  2.018e+01amu   0.0e   
+---------------------------------------------------
+  -> Neon       Ne   10    20   1.999e+01amu   0.0e   
+
+xenon  Xe  Xe132  1.313e+02amu   0.0e   
+---------------------------------------------------
+  -> Xenon      Xe   54   132   1.319e+02amu   0.0e   
+
+
+
+dump hadrons
+------------
+antiproton  pbar  1.007amu   -1.0e   
+
+
+tAtom() function end
+********************************************************************************
+
+prBIDays main() end
+*******************
+

@@ -1,0 +1,22 @@
+# J. Phys. B: At. Mol. Opt. Phys. 44 (2011) 122001
+# Molecular CO2 -> CO2++ antiproton inisation cross section RATIO, in
+# unit of   CO2 -> CO2+ cross section *1000
+
+
+# Energy_(keV)    CO2_->_CO2+_CS*1000   exp_uncertainty_(1_sigma)
+1001.5    16    4
+856.6     6     3
+741.5     11    3
+648.1     14    3
+571.1     14    3
+507.4     17    3
+442.5     13    3
+378.7     13    3
+321.5     21    3
+260.6     12    3
+205.9     16    4
+162.7     18    4
+127       24    6
+99.7      7     7
+78.2      5     13
+61        19    16

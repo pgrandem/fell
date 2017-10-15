@@ -1,0 +1,23 @@
+# J. Phys. B: At. Mol. Opt. Phys. 44 (2011) 122001
+# Molecular N2 -> N++ antiproton inisation cross section RATIO, in
+# unit of   N2 -> N2+ cross section *1000
+
+
+# Energy_(keV)    N2_->_N2+_CS*1000   exp_uncertainty_(1_sigma)
+1003.2    13    
+857.6     12    
+741.3     16    
+647.5     13    
+570.6     22    
+507.2     20    
+442.1     20    
+378.9     27    
+321.2     28    
+260.2     29    
+205.8     44    
+162.5     44    
+127       54    
+99.7      60    
+78.2      63    
+61.1      79    
+46.2      51    

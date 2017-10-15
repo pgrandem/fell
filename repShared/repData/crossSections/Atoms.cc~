@@ -1,0 +1,20 @@
+// Atom class
+// Pierre Grandemange
+// 01/06/2015
+
+#include <iostream>
+#include <Atom.h>
+using namespace std;
+
+class Atom
+{
+  public : 
+  double getMass(); //mass of the atom
+  
+  double classicalRadius(); // approximated classical radius of atom
+  double classicalCrossSection(); // classical approximated cross section
+  
+  private :
+  double m_mass; // mass of the atom
+  
+}

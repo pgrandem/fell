@@ -1,0 +1,81 @@
+
+prBIDays main() start
+*********************
+
+testRutherfordScattering() - 22.06.2017
+********************************************************************************
+test atom/mol/gas for rutherford scattering results
+
+RGas dump method
+----------------
+elena test gas :  p=4.0e-12mbar_N2eq  T=300.0K  n=9.657e+10/m3_N2eq  
+-------------------------------------------------------------------
+100% N2(N14_2) | n=9.66e+10/m3(pK=1.0) | m=28.01amu   
+Nitrogen    N    7    14   1.400e+01amu   0.0e   
+Nitrogen    N    7    14   1.400e+01amu   0.0e   
+-------------------------------------------------------------------
+
+
+dump machine parameters
+-----------------------
+elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+
+
+dump flyer parameters
+---------------------
+antiproton: pbar m=1.007amu C=-1.0e 
+beta=0.037 gamma=1.001 ekin=6.429e-01MeV mv=3.474e+01MeV/c v=1.109e+07m/s 
+
+
+RAtom dumpcs method (rutherford scattering - IPAC2014, C.Carli, TUPRI028)
+--------------------------------------------------------------------------------
+atom:  Nitrogen    N    7    14   1.400e+01amu   0.0e   
+flyer: antiproton: pbar m=1.007amu C=-1.0e 
+       beta=0.037 gamma=1.001 ekin=6.429e-01MeV mv=3.474e+01MeV/c v=1.109e+07m/s 
+machine: elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+--------------------------------------------------------------------------------
+rs_totcs = 2.89e-20m2 | rs_totra = 9.59e-11m | total cs/radius
+rs_lalcs = 3.10e-23m2 | rs_lalip = 3.14e-12m | large angle loss cs/impact param
+rs_ebucs = 5.29e-23m2 | rs_ebuip = 4.10e-12m | emittance blowup cs/impact param
+--------------------------------------------------------------------------------
+
+
+RMolecule dumpcs method (cross sections: ionisation and rutherford scattering)
+--------------------------------------------------------------------------------
+mol : dinitrogen  N2  N14_2  2.801e+01amu  0.0e  
+---------------------------------------------------
+  -> Nitrogen    N    7    14   1.400e+01amu   0.0e   
+  -> Nitrogen    N    7    14   1.400e+01amu   0.0e   
+flyer: antiproton: pbar m=1.007amu C=-1.0e 
+       beta=0.037 gamma=1.001 ekin=6.429e-01MeV mv=3.474e+01MeV/c v=1.109e+07m/s 
+machine: elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+--------------------------------------------------------------------------------
+ion_pbarcs = 2.26e-20m2 | ionisation
+rs_totcs =   5.78e-20m2 | rutherford scattering - total
+rs_lalcs =   6.19e-23m2 | rutherford scattering - large angle loss
+rs_ebucs =   1.06e-22m2 | rutherford scattering - emittance blowup
+--------------------------------------------------------------------------------
+
+
+RGas dumpRates method 
+---------------------
+gas: elena test gas | pN2eq=4.00e-12mbar - T=300.0K - nN2eq=9.66e+10/m3
+flyer: antiproton: pbar m=1.007amu C=-1.0e 
+       beta=0.037 gamma=1.001 ekin=6.429e-01MeV mv=3.474e+01MeV/c v=1.109e+07m/s 
+machine: elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+--------------------------------------------------------------------------------
+      ionisation      scatt tot       las loss        em blow up      
+rate  2.419e-02/s     6.193e-02/s     6.632e-05/s     1.134e-04/s     
+--------------------------------------------------------------------------------
+100% N2  n=9.66e+10/m3(pK=1) | 
+      ionisation      scatt tot       las loss        em blow up      
+cs    2.258e-20m2     5.782e-20m2     6.191e-23m2     1.059e-22m2     
+rate  2.419e-02/s     6.193e-02/s     6.632e-05/s     1.134e-04/s     
+--------------------------------------------------------------------------------
+
+testRutherfordScattering() end 
+********************************************************************************
+
+prBIDays main() end
+*******************
+

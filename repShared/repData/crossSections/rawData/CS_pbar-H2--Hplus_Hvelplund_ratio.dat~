@@ -1,0 +1,27 @@
+# J. Phys. B: At. Mol. Opt. Phys. 44 (2011) 122001
+# Molecular H2 -> H+ antiproton inisation cross section RATIO, in
+# unit of   H2 -> H2+ cross section *1000
+
+
+# Energy_(keV)  H2_->_H2+_CS*1000  exp_uncertainty_(1_sigma)
+13.00   248
+15.80   225
+19.90   239
+24.20   229
+29.70   209
+41.40   222
+53.60   194
+67.00   191
+80.60   171
+91.20   171
+101.4   162
+113.9   157
+128.3   153
+145.8   151
+167.7   139
+194.4   129
+227.6   120
+270.2   113
+326.5   109
+402.8   102
+503.0   100

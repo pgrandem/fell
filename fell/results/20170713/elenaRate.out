@@ -1,0 +1,123 @@
+
+prBIDays main() start
+*********************
+
+elenaRate() - 22.06.2017
+********************************************************************************
+elena rate with beam
+
+dump beam 
+---------
+elenaBeam | flyer: pbar | beta=0.037 | npb=2e+07
+
+
+oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+molecular Nitrogen
+oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+
+RGas dumpRates method (for beam)
+--------------------------------
+gas: dinitrogen | pN2eq=4.00e-12mbar - T=300.0K - nN2eq=9.66e+10/m3
+flyer: antiproton: pbar m=1.007amu C=-1.0e 
+       beta=0.037 gamma=1.001 ekin=6.429e-01MeV mv=3.474e+01MeV/c v=1.109e+07m/s 
+machine: elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+--------------------------------------------------------------------------------
+rate unit       ionisation      scatt tot       las loss        em blow up      
+/ion/s          2.419e-02       6.193e-02       6.632e-05       1.134e-04       
+/beam/m/s       1.591e+04       4.074e+04       4.362e+01       7.458e+01       
+/beam/cm/100ms  1.591e+01       4.074e+01       4.362e-02       7.458e-02       
+--------------------------------------------------------------------------------
+100% N2  n=9.66e+10/m3(pK=1) | 
+val|unit        ionisation      scatt tot       las loss        em blow up      
+cs|m2           2.258e-20       5.782e-20       6.191e-23       1.059e-22       
+rate|/ion/s     2.419e-02       6.193e-02       6.632e-05       1.134e-04       
+--------------------------------------------------------------------------------
+
+
+RGas dumpRates method (for beam)
+--------------------------------
+gas: dinitrogen | pN2eq=4.00e-12mbar - T=300.0K - nN2eq=9.66e+10/m3
+flyer: antiproton: pbar m=1.007amu C=-1.0e 
+       beta=0.015 gamma=1.000 ekin=1.000e-01MeV mv=1.370e+01MeV/c v=4.377e+06m/s 
+machine: elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+--------------------------------------------------------------------------------
+rate unit       ionisation      scatt tot       las loss        em blow up      
+/ion/s          2.031e-02       2.444e-02       1.080e-03       8.420e-04       
+/beam/m/s       1.336e+04       1.607e+04       7.101e+02       5.538e+02       
+/beam/cm/100ms  1.336e+01       1.607e+01       7.101e-01       5.538e-01       
+--------------------------------------------------------------------------------
+100% N2  n=9.66e+10/m3(pK=1) | 
+val|unit        ionisation      scatt tot       las loss        em blow up      
+cs|m2           4.805e-20       5.782e-20       2.554e-21       1.992e-21       
+rate|/ion/s     2.031e-02       2.444e-02       1.080e-03       8.420e-04       
+--------------------------------------------------------------------------------
+
+
+oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+molecular hydrogen
+oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+
+RGas dumpRates method (for beam)
+--------------------------------
+gas: dihydrogen | pN2eq=4.00e-12mbar - T=300.0K - nN2eq=9.66e+10/m3
+flyer: antiproton: pbar m=1.007amu C=-1.0e 
+       beta=0.106 gamma=1.006 ekin=5.314e+00MeV mv=1.000e+02MeV/c v=3.177e+07m/s 
+machine: elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+--------------------------------------------------------------------------------
+rate unit       ionisation      scatt tot       las loss        em blow up      
+/ion/s          -2.293e-02      1.163e-01       1.382e-07       4.714e-07       
+/beam/m/s       -1.508e+04      7.653e+04       9.092e-02       3.101e-01       
+/beam/cm/100ms  -1.508e+01      7.653e+01       9.092e-05       3.101e-04       
+--------------------------------------------------------------------------------
+100% H2  n=2.32e+11/m3(pK=2.4) | 
+val|unit        ionisation      scatt tot       las loss        em blow up      
+cs|m2           -3.114e-21      1.580e-20       1.877e-26       6.402e-26       
+rate|/ion/s     -2.293e-02      1.163e-01       1.382e-07       4.714e-07       
+--------------------------------------------------------------------------------
+
+
+RGas dumpRates method (for beam)
+--------------------------------
+gas: dihydrogen | pN2eq=4.00e-12mbar - T=300.0K - nN2eq=9.66e+10/m3
+flyer: antiproton: pbar m=1.007amu C=-1.0e 
+       beta=0.037 gamma=1.001 ekin=6.526e-01MeV mv=3.500e+01MeV/c v=1.118e+07m/s 
+machine: elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+--------------------------------------------------------------------------------
+rate unit       ionisation      scatt tot       las loss        em blow up      
+/ion/s          1.491e-02       4.092e-02       3.176e-06       7.515e-06       
+/beam/m/s       9.805e+03       2.692e+04       2.089e+00       4.943e+00       
+/beam/cm/100ms  9.805e+00       2.692e+01       2.089e-03       4.943e-03       
+--------------------------------------------------------------------------------
+100% H2  n=2.32e+11/m3(pK=2.4) | 
+val|unit        ionisation      scatt tot       las loss        em blow up      
+cs|m2           5.755e-21       1.580e-20       1.226e-24       2.901e-24       
+rate|/ion/s     1.491e-02       4.092e-02       3.176e-06       7.515e-06       
+--------------------------------------------------------------------------------
+
+
+RGas dumpRates method (for beam)
+--------------------------------
+gas: dihydrogen | pN2eq=4.00e-12mbar - T=300.0K - nN2eq=9.66e+10/m3
+flyer: antiproton: pbar m=1.007amu C=-1.0e 
+       beta=0.015 gamma=1.000 ekin=1.000e-01MeV mv=1.370e+01MeV/c v=4.377e+06m/s 
+machine: elena: L=30.4055m | tBeta=3m | A=75um | Aangle=0.005
+--------------------------------------------------------------------------------
+rate unit       ionisation      scatt tot       las loss        em blow up      
+/ion/s          1.762e-02       1.603e-02       5.288e-05       7.554e-05       
+/beam/m/s       1.159e+04       1.054e+04       3.478e+01       4.969e+01       
+/beam/cm/100ms  1.159e+01       1.054e+01       3.478e-02       4.969e-02       
+--------------------------------------------------------------------------------
+100% H2  n=2.32e+11/m3(pK=2.4) | 
+val|unit        ionisation      scatt tot       las loss        em blow up      
+cs|m2           1.737e-20       1.580e-20       5.213e-23       7.447e-23       
+rate|/ion/s     1.762e-02       1.603e-02       5.288e-05       7.554e-05       
+--------------------------------------------------------------------------------
+
+elenaRate() function end 
+********************************************************************************
+
+prBIDays main() end
+*******************
+
