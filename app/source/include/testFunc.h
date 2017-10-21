@@ -25,7 +25,12 @@
 /// couple beams, cycles and interactions
 /// ****************************************************************************
 
-// testNewGFB() - 20170921
+//// testBeamDist() - 20171021
+/// ----------------------------------------------------------------------------
+/// test beam distributions
+void testBeamDist();
+
+/// testNewGFB() - 20170921
 /// ----------------------------------------------------------------------------
 /// test new gas/flyer/beam class 
 void testNewGFB();
@@ -34,11 +39,6 @@ void testNewGFB();
 /// ----------------------------------------------------------------------------
 /// test RMath namespace new functions <mean> and <standardDev>
 void testRMath();
-
-//// testBeamDist() - 20170916
-/// ----------------------------------------------------------------------------
-/// test beam distributions with new flyers definition
-void testBeamDist();
 
 /// testNewFlyers() - 20170916
 /// ----------------------------------------------------------------------------

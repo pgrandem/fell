@@ -652,15 +652,15 @@ double RGas::rs_totnuGas(RBeam* const& beam,  RMachine* const& mac) const
 double* RGas::rsRates(RBeam* const& beam, RMachine* const& mac) const
 {
   ///parameters
-  double* rat= new double[8]{0.};             /// output
-  RFlyer* fco( beam->getFlyColl() );  /// flyer collection
-  int     nfl( beam->getN()  );               /// number of flyers
-  double 	mle( mac->getLength() );            /// machine length
+  double* rat= new double[8]{0.};       /// output
+  RFlyer* fco( beam->getFlyColl() );    /// flyer collection
+  int     nfl( beam->getN()  );         /// number of flyers
+  double 	mle( mac->getLength() );      /// machine length
   
   /// 1st nfl loop : sum of xi
   for( int i=0; i<beam->getN(); ++i ) { 
-    //rat[0] += ion_pbarnuGas( (RFlyer*)&fco[i]      );
-    rat[0] += 1.;
+    rat[0] += ion_pbarnuGas( (RFlyer*)&fco[i]      );
+    //rat[0] += 1.;
     rat[1] += rs_ebunuGas(   (RFlyer*)&fco[i], mac );
     rat[2] += rs_lalnuGas(   (RFlyer*)&fco[i], mac );
     rat[3] += rs_totnuGas(   (RFlyer*)&fco[i]      );
@@ -670,8 +670,8 @@ double* RGas::rsRates(RBeam* const& beam, RMachine* const& mac) const
   
   /// 2nd nfl loop : sum of (xi - mean)^2
   for( int i=0; i<beam->getN(); ++i ) { 
-    //rat[4] += pow( (ion_pbarnuGas(&fco[i]) - rat[0]),    2 );
-    rat[4] += 1.;
+    rat[4] += pow( (ion_pbarnuGas(&fco[i]) - rat[0]),    2 );
+    //rat[4] += 1.;
     rat[5] += pow( (rs_ebunuGas(&fco[i], mac) - rat[1]), 2 );
     rat[6] += pow( (rs_lalnuGas(&fco[i], mac) - rat[2]), 2 );
     rat[7] += pow( (rs_totnuGas(&fco[i]) - rat[3]),      2 );

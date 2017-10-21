@@ -140,8 +140,9 @@ static const double m2            = 1.*square_meter;
 
 /// time
 /// ----------------------------------------------------------------------------
-static const double millisecond = 1.*milli*second;
-static const double ms					= 1.*millisecond;
+static const RUnit ms("millisecond", "ms", "time", 1.*milli*s);
+static const RUnit millisecond = ms;
+//static const double ms					= 1.*millisecond;
 static const double microsecond = 1.*micro*second;
 static const double us          = 1.*microsecond;
 static const double nanosecond  = 1.*nano*second;

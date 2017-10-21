@@ -47,10 +47,161 @@ using namespace std;
 
 
 
+/// forward declaration for const global variable defined elsewhere
+/// ****************************************************************************
+extern const clock_t gtimerstart; /// main timer start 
+
 
 
 /// couple beams, cycles and interactions
 /// ****************************************************************************
+
+/// testBeamDist() - 20170921
+/// ----------------------------------------------------------------------------
+/// test beam distributions with new flyers definition
+void testBeamDist()
+{
+  /// function intro
+  /// --------------------------------------------------------------------------
+  cout << endl;   cout << "testBeamDist() - 21/10/2017" << endl;
+  RDump::line();  cout << "test beam distributions function." << endl;
+  RDump::timer(gtimerstart);
+  
+  /// build the beam
+  /// --------------------------------------------------------------------------
+  cout << endl << "building beam" << endl; RDump::line(13, "-");
+  /// beam name
+  const string bna="beam name";
+  /// number of particles
+  const int npa=1e4;
+  const int m10=npa/10; /// modulo10 : to plot 10 values of npa
+  /// particles 
+  RParticle* par = (RParticle*)RParticleList::hpbar();
+  /// beam 6D dist type
+  //string dis[6] = {"flat", "gauss", "gauss", "flat", "flat", "flat"};
+  string dis[6] = {"gauss", "gauss", "gauss", "gauss", "gauss", "gauss"};
+  /// beam 6D dist mean
+  const double xmu(  0.*RUnits::mm );
+  const double ymu(  0.*RUnits::mm );
+  const double zmu(  0.*RUnits::mm );
+  const double pxmu( 0.*RUnits::MeV_c );
+  const double pymu( 0.*RUnits::MeV_c );
+  const double pzmu( 100.*RUnits::MeV_c );
+  double mea[6] = { xmu, ymu, zmu, pxmu, pymu, pzmu };
+  /// beam size
+  //const double dx(  1.*RUnits::mm );
+  //const double dy(  2.*RUnits::mm );
+  //const double dz(  3.*RUnits::mm );
+  //const double dpx( 4.*RUnits::MeV_c );
+  //const double dpy( 5.*RUnits::MeV_c );
+  //const double dpz( 6.*RUnits::MeV_c );
+  const double dx(  1.e1*RUnits::mm );
+  const double dy(  2.*RUnits::mm );
+  const double dz(  5.e1*RUnits::mm );
+  const double dpx( 1.e-4*pzmu );
+  const double dpy( 2.e-4*pzmu );
+  const double dpz( 5.e-4*pzmu );
+  double siz[6] = { dx, dy, dz, dpx, dpy, dpz };
+  /// instantiate by beam size OR by (beam emittance AND machine parameters)
+  RBeam* bea = new RBeam(bna, npa, par, dis, mea, siz);
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  
+  /// beam dumpLine
+  /// --------------------------------------------------------------------------
+  cout << endl << "beam dumpLine method" << endl; RDump::line(20, "-");
+  bea->dumpLine();
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  
+  /// dump beam sizes
+  /// --------------------------------------------------------------------------
+  cout << endl << "dump beam sizes" << endl; RDump::line(15, "-");
+  for( int i=0; i<6; ++i ) { 
+    double size( bea->getSize()[i] );
+    if( i<3 ) cout << i << "  " << size/RUnits::mm << " mm" << endl; 
+    else      cout << i << "  " << size/RUnits::MeV_c << " MeV_c" << endl;  
+  }
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  
+  /// dump RFlyer collection
+  /// --------------------------------------------------------------------------
+  cout << endl << "dump RFlyer collection" << endl; RDump::line(22, "-"); 
+  bea->dumpFlyColl(m10);
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  
+  /// dump integrals
+  /// --------------------------------------------------------------------------
+  cout << endl << "dump integrals " << endl; RDump::line(14, "-");
+  for( int i=0; i<6; ++i ) {
+    TF1   f( bea->getFunc()[i] );
+    TH1D  h( bea->getHist()[i] );
+    double xM( f.GetXmax() );
+    double xm( f.GetXmin() );
+    cout << "h[i].Int() "  << left << setw(6) << h.Integral()        << " ";
+    cout << "h[i].Int(w) " << left << setw(7) << h.Integral("width") << " ";
+    cout << "f[i].Int() "  << left << setw(8) << f.Integral(xm, xM)  << endl;
+  }
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  
+  /// plot beam distributions
+  /// --------------------------------------------------------------------------
+  cout << endl << "plot functions and distributions in a pdf file" << endl;
+  RDump::line(46, "-");
+  /// output pdf/canvas/plot parameters
+  string pdfN     = "../results/20171021/testBeam.pdf";
+  string pdfOpen  = pdfN + "[";
+  string pdfClose = pdfN + "]";
+  double cw(864); /// can width  = 0.95 * 1920/2
+  double ch(486); /// can height = 0.95 * 1080/2 
+  TCanvas* can = new TCanvas("can", "testBeamPDFoutput",cw, ch);
+  can->SetWindowSize( cw+(cw-can->GetWw()), ch+(ch-can->GetWh()) );
+  /// plot dist in pdf
+  can->Print(pdfOpen.c_str()); 
+  for( int i=0; i<6; ++i ) { 
+    /// func drawing options
+    bea->getFunc()[i].Draw(); 
+    /// hist drawing options
+    //bea->getHist()[i].Draw("hist"); 
+    bea->getHist()[i].Draw("same"); 
+    //bea->getHist()[i].SetLineWidth(2); 
+    /// canvas print
+    can->Print(pdfN.c_str()); 
+  }
+  can->Print(pdfClose.c_str()); 
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  
+  /// function outro
+  /// --------------------------------------------------------------------------
+  /// outro header
+  cout << endl; cout << "testBeamDist() function end " << endl; RDump::line();
+  /// timer
+  RDump::timer(gtimerstart);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /// testNewGFB() - 20170920
@@ -154,18 +305,17 @@ void testNewGFB()
   /// dump values
   cout << endl << endl << "beam definition" << endl; RDump::line(15, "-");
   bea->dumpLine();
-  /*for( int i=0; i<npa; ++i ) {
-    RFlyer fly = bea->getFlyColl()[i];
-    cout << setw(2) << left << i << " "; 
-    fly.line6D();
-  }*/
+  bea->dumpFlyColl(100);
   
   /// dump chrono
   chrono = 1000.*double(clock()-chronoStart)/CLOCKS_PER_SEC;
   cout << endl << "chrono = " << chrono << "ms" << endl; 
   
-  /// dump values 2! 
-  cout << endl; bea->dumpFlyColl(200);
+  /// dump gas rates with flyers
+  /*for( int i=0; i<npa; ++i ) {
+    RFlyer fly = bea->getFlyColl()[i];
+    cout << endl; gas->dumpRates(&fly, mac); 
+  }
   
   /// dump iostream
   //iop = cout.precision();
@@ -174,6 +324,7 @@ void testNewGFB()
   /// dump chrono
   chrono = 1000.*double(clock()-chronoStart)/CLOCKS_PER_SEC;
   cout << endl << "chrono = " << chrono << "ms" << endl; 
+  */
   
   /// dump root data folder (new RDump function using getenv)
   //cout << endl;
@@ -215,136 +366,6 @@ void testNewGFB()
   cout << endl; cout << "testNewGFB() function end " << endl; RDump::line();
   cout << "function computation time = " << chrono << "ms" << endl; 
 }
-
-
-
-
-
-
-
-
-/// testBeamDist() - 20170921
-/// ----------------------------------------------------------------------------
-/// test beam distributions with new flyers definition
-void testBeamDist()
-{
-  /// function intro
-  /// --------------------------------------------------------------------------
-  /// computation time recorder start
-  const clock_t timeFuncStart = clock();
-  /// function header
-  cout << endl;   cout << "testBeamDist() - 21/09/2017" << endl;
-  RDump::line();  cout << "test beam distributions with new flyer." << endl;
-  
-  
-  /// do the stuff
-  /// --------------------------------------------------------------------------
-  /// beam name
-  const string bna="firstBeam";
-  /// number of particles
-  const int npa=1e4; 
-  /// particles 
-  RParticle* par = (RParticle*)RParticleList::hpbar();
-  /// distribution types
-  string dis[6] = {"flat", "gauss", "gauss", "flat", "flat", "flat"};
-  /// beam size
-  double dx(  1.*RUnits::mm );
-  double dy(  2.*RUnits::mm );
-  double dz(  3.*RUnits::mm );
-  double dpx( 4.*RUnits::MeV_c );
-  double dpy( 5.*RUnits::MeV_c );
-  double dpz( 6.*RUnits::MeV_c );
-  double siz[6] = { dx, dy, dz, dpx, dpy, dpz };
-  /// beam
-  ///   -> defined by beam size OR by (beam emittance AND machine parameters)
-  RBeam* bea = new RBeam(bna, npa, par, dis, siz);
- 
-  /// dump computation time
-  cout << endl << "computation time" << endl; RDump::line(16, "-");
-  float t1(1000*float(clock()-timeFuncStart)/CLOCKS_PER_SEC);
-  cout << "t1 = " << t1 << "ms" << endl; 
-  
-  /// check the stuff
-  /// --------------------------------------------------------------------------
-  /// beam dumpLine method
-  cout << endl << "beam dumpLine method" << endl; RDump::line(20, "-");
-  bea->dumpLine();
-  /// dump 6D sizes 
-  cout << endl << "dump beam sizes" << endl; RDump::line(15, "-");
-  for( int i=0; i<6; ++i ) { 
-    double size( bea->getSize()[i] );
-    if( i<3 ) cout << i << "  " << size/RUnits::mm << " mm" << endl; 
-    else      cout << i << "  " << size/RUnits::MeV_c << " MeV_c" << endl;  
-  }
-  
-  /*/// dump RFlyer collection
-  cout << endl << "dump RFlyer collection" << endl; RDump::line(22, "-"); 
-  for(int i; i<npa; ++i) { 
-    cout << i << "  "; 
-    //RFlyer fly = bea->getFlyColl()[i];
-    //fly.line6D();
-    bea->getFlyColl()[i].line6D();
-  }*/
-  
-  /// dump integrals
-  cout << endl << "dump integrals " << endl; RDump::line(14, "-");
-  for( int i=0; i<6; ++i ) {
-    TF1   f( bea->getFunc()[i] );
-    TH1D  h( bea->getHist()[i] );
-    double xM( f.GetXmax() );
-    double xm( f.GetXmin() );
-    cout << "h[i].Int() "  << left << setw(6) << h.Integral()        << " ";
-    cout << "h[i].Int(w) " << left << setw(7) << h.Integral("width") << " ";
-    cout << "f[i].Int() "  << left << setw(8) << f.Integral(xm, xM)  << endl;
-  }
-  
-  /// output pdf/canvas/plot parameters
-  string pdfN     = "../results/20170921/testBeam.pdf";
-  string pdfOpen  = pdfN + "[";
-  string pdfClose = pdfN + "]";
-  double cw(864); /// can width  = 0.95 * 1920/2
-  double ch(486); /// can height = 0.95 * 1080/2 
-  TCanvas* can = new TCanvas("can", "testBeamPDFoutput",cw, ch);
-  can->SetWindowSize( cw+(cw-can->GetWw()), ch+(ch-can->GetWh()) );
-  
-  /// plot dist in pdf
-  cout << endl << "plot functions and distributions in a pdf file" << endl;
-  RDump::line(46, "-");
-  can->Print(pdfOpen.c_str()); 
-  for( int i=0; i<6; ++i ) { 
-    /// func drawing options
-    bea->getFunc()[i].Draw(); 
-    /// hist drawing options
-    //bea->getHist()[i].Draw("hist"); 
-    bea->getHist()[i].Draw("same"); 
-    //bea->getHist()[i].SetLineWidth(2); 
-    /// canvas print
-    can->Print(pdfN.c_str()); 
-  }
-  can->Print(pdfClose.c_str()); 
-  
-  /// test RUnit/RUnits
-  //double nt=2.*RUnits::mm;
-  //cout << nt << "   " << nt/RUnits::mm << RUnits::mm.getSymbol() << endl;
- 
-  /// dump computation time
-  //cout << endl << "computation time" << endl; RDump::line(16, "-");
-  //float t2(1000*float(clock()-timeFuncStart)/CLOCKS_PER_SEC);
-  //cout << "t2 = " << t2 << "ms" << endl; 
-  
-  
-  /// function outro
-  /// --------------------------------------------------------------------------
-  /// computation time recorder end
-  float timeFuncDur(1000*float(clock()-timeFuncStart)/CLOCKS_PER_SEC);
-  /// outro header
-  cout << endl; cout << "testBeamDist() function end " << endl; RDump::line();
-  cout << "function computation time = " << timeFuncDur << "ms" << endl; 
-}
-
-
-
-
 
 
 

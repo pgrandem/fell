@@ -8,12 +8,13 @@
 /// includes and namespaces
 /// ----------------------------------------------------------------------------
 /// standard library
-#include <ctime>      /// clock
+#include <ctime>      /// clock_t, clock(), CLOCKS_PER_SEC
 #include <iostream>
 /// root classes
 /// rep classes
 #include "RDump.h"
 /// rep namespaces
+#include "RUnits.h"
 /// rep data functions
 /// local functions
 #include "testFunc.h"
@@ -21,11 +22,13 @@
 using namespace std;
 
 
+/// define initialized const global variable (external linkage)
+/// ****************************************************************************
+extern const clock_t gtimerstart(clock()); /// main timer start 
 
 /// prototypes
 /// ****************************************************************************
 void hiRep();  /// hello rep test function
-
 
 
 /// main program
@@ -34,17 +37,14 @@ int main()
 {
   /// main intro
   /// --------------------------------------------------------------------------
-  /// clock main
-  const clock_t tstart = clock();   /// main start time
-  float tmain(0);                   /// main time counter
   /// intro header
   cout << endl; cout << "fell main() start" << endl; RDump::line(17);
   
   
   /// main : here it goes!
   /// --------------------------------------------------------------------------
-  testNewGFB();
-  //testBeamDist();
+  testBeamDist();
+  //testNewGFB();
   //testRMath();
   //testNewFlyers();
   //testBeamProfiles();
@@ -68,10 +68,10 @@ int main()
   /// main outro
   /// --------------------------------------------------------------------------
   /// outro title
-  cout << endl; cout << "fell main() end" << endl; RDump::line(35);
+  cout << endl; cout << "fell main() end" << endl; RDump::line(15);
   /// main end computation time
-  tmain = 1000.*float(clock()-tstart)/CLOCKS_PER_SEC;
-  cout << "<main> computation time = " << tmain << "ms" << endl << endl; 
+  RDump::timer(gtimerstart);
+  /// main return
   return 0;
 }
 
@@ -81,8 +81,9 @@ int main()
 /// functions
 /// ****************************************************************************
 
-/// hello rep test function
+/// hiRep()
 /// ----------------------------------------------------------------------------
+/// hello rep test function
 /// - dump "hello rep"
 void hiRep()
 {

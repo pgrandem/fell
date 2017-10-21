@@ -52,7 +52,7 @@ class RBeam : public RObject
 	      double macPar[3]);
   
   RBeam(std::string const& name, int npb, RParticle* par, 
-	      std::string const distType[6],  double size[6]);
+	      std::string const distType[6], double mean[6], double size[6]);
   ~RBeam();
 	
   
@@ -128,7 +128,7 @@ class RBeam : public RObject
  	/// other methods
   /// **************************************************************************
  	public:
-	//// flyColl
+	/// flyColl
   /// --------------------------------------------------------------------------
   /// Set rflyColl from rfunc and rflyNumb.
   /// Look at RMath::random.

@@ -13,17 +13,29 @@
 /// includes
 /// ----------------------------------------------------------------------------
 /// standard library
+#include <ctime>      /// clock_t, clock(), CLOCKS_PER_SEC
 #include <iostream>
 #include <string>
 
 namespace RDump {
 
-/// line
+// line
 /// ----------------------------------------------------------------------------
 /// dump a line
 void line(int width=80, std::string const& charac="*", 
           std::ostream& flux=std::cout);
 
+
+/// timer
+/// ----------------------------------------------------------------------------
+/// dump time in ms spent since <timerstart>
+///   - returns dumped value
+float timer(clock_t timerstart, std::ostream &flux=std::cout);
+
+//// timerms
+/// ----------------------------------------------------------------------------
+/// returns time in ms spent since <clockstart>
+float timerms(clock_t timerstart);
 
 } /// end of namespace 
 

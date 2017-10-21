@@ -52,10 +52,11 @@ RBeam::RBeam(string const& name, int npb, RParticle* par, string const dtype[6],
 }
 
 RBeam::RBeam(string const& name, int npb, RParticle* par, 
-             string const dtype[6], double size[6]) : 
+             string const dtype[6], double mean[6], double size[6]) : 
 	RObject(name), 
   rflyNumb(npb), 
   rparType(par),
+  rmean{ mean[0], mean[1], mean[2], mean[3], mean[4], mean[5] },
   rtype{ dtype[0], dtype[1], dtype[2], dtype[3], dtype[4], dtype[5] },
   rsize{ size[0], size[1], size[2], size[3], size[4], size[5] },
   remit{  1., 1., 1. }/*compute emittance ?!!*/,
@@ -111,24 +112,32 @@ void RBeam::dumpLine(ostream &flux) const
 /// dump flyer collection x y z px py pz 
 void RBeam::dumpFlyColl(int modulo, ostream& flux) const
 {
-  //int const iw(2);
-  string const sep(" ");
-  //int const w(8);
-  flux << left << setw(3) << "i" << sep;
-  flux << left << setw(10) << " x" << sep;
-  flux << left << setw(10) << " y" << sep;
-  flux << left << setw(10) << " z" << sep;
-  flux << left << setw(13) << " px" << sep;
-  flux << left << setw(13) << " py" << sep;
-  flux << left << setw(13) << " pz";
+  /// save previous stream format settings
+  ios::fmtflags f(flux.flags());        /// save current flux flags
+  streamsize    p(flux.precision());    /// save current flux precision
+  /// new stream format... to dump iterator i value
+  flux.flags(ios::left | ios::scientific); /// ajust on right, scientifi
+  const string sep(" ");
+  const int iw(5);
+  flux.precision(0);
+  flux << setw(iw) << "i" << sep;
+  flux << setw(10) << " x" << sep;
+  flux << setw(10) << " y" << sep;
+  flux << setw(10) << " z" << sep;
+  flux << setw(13) << " px" << sep;
+  flux << setw(13) << " py" << sep;
+  flux << setw(13) << " pz";
   flux << "\n";
   RDump::line(78, "-");
   for( int i=0; i<rflyNumb; ++i ) {
     if( i % modulo == 0 ) {
-      flux << left << setw(3) << i << sep;
+      flux << setw(iw) << (double)i << sep;
       rflyColl[i].line6D(flux);
     }
   }
+  /// restore previous stream format settings
+  flux.flags(f);        /// restore flags
+  flux.precision(p);    /// restore precision
 }
   
 
@@ -211,7 +220,7 @@ void RBeam::funcNH()
 }
 
 /// hist
-/// --------------------------------------------------------------------------
+/// ----------------------------------------------------------------------------
 /// Sets rhist
 /// look RMath::rh1
 ///   - nbin | bin number in histogram
@@ -237,7 +246,7 @@ void RBeam::hist(int const nbin)
 }
 
 /// sizeEmit
-/// --------------------------------------------------------------------------
+/// ----------------------------------------------------------------------------
 /// Evaluate 6D beam size from machine parameters
 /// For example : sizeMac(x) = sqrt(emittance_x * twiss_beta_x).
 ///   macParam | pointer to machine parameters:

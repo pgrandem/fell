@@ -8,8 +8,11 @@
 
 
 
-21/09/2017
+21/10/2017
 /// ----------------------------------------------------------------------------
+Lots of changes undocumented since last update of this file:
+Pierre, bad boy, really bad boy...
+
 
 
 20/09/2017
