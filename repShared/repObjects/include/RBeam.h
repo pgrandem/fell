@@ -115,8 +115,13 @@ class RBeam : public RObject
  	public:
  	/// dump line
   /// --------------------------------------------------------------------------
+  /// dump main beam properties on one line
   void dumpLine(std::ostream& flux=std::cout) const;
   
+  /// dumpFlyColl
+  /// --------------------------------------------------------------------------
+  /// dump flyer collection x y z px py pz 
+  void dumpFlyColl(int modulo=1, std::ostream& flux=std::cout) const;
   
   
   

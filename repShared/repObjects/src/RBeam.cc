@@ -16,6 +16,7 @@
 #include "TMath.h"
 #include "TRandom3.h"
 /// rep namespaces
+#include "RDump.h"
 #include "RMath.h"
 #include "RParticleList.h"
 #include "RUnits.h"
@@ -89,7 +90,9 @@ RBeam::~RBeam()
 
 /// dump methods
 /// ****************************************************************************
-/// dump properties
+/// dump line
+/// --------------------------------------------------------------------------
+/// dump main beam properties on one line
 void RBeam::dumpLine(ostream &flux) const
 {
 	
@@ -103,7 +106,31 @@ void RBeam::dumpLine(ostream &flux) const
   flux << endl; flux.flags(f);		/// restore flags
 }
 
-
+/// dumpFlyColl
+/// --------------------------------------------------------------------------
+/// dump flyer collection x y z px py pz 
+void RBeam::dumpFlyColl(int modulo, ostream& flux) const
+{
+  //int const iw(2);
+  string const sep(" ");
+  //int const w(8);
+  flux << left << setw(3) << "i" << sep;
+  flux << left << setw(10) << " x" << sep;
+  flux << left << setw(10) << " y" << sep;
+  flux << left << setw(10) << " z" << sep;
+  flux << left << setw(13) << " px" << sep;
+  flux << left << setw(13) << " py" << sep;
+  flux << left << setw(13) << " pz";
+  flux << "\n";
+  RDump::line(78, "-");
+  for( int i=0; i<rflyNumb; ++i ) {
+    if( i % modulo == 0 ) {
+      flux << left << setw(3) << i << sep;
+      rflyColl[i].line6D(flux);
+    }
+  }
+}
+  
 
 
 

@@ -69,7 +69,7 @@ void testNewGFB()
   
   /// debug iostream parameters
   /// --------------------------------------------------------------------------
-  streamsize iop(cout.precision());
+  //streamsize iop(cout.precision());
   
   /// dump iostream
   //iop = cout.precision();
@@ -131,7 +131,7 @@ void testNewGFB()
   /// beam name
   const string bna="testBeam";
   /// number of particles
-  const int npa=1.e1; 
+  const int npa=1000; 
   /// particles 
   RParticle* par = (RParticle*)RParticleList::hpbar();
   /// distribution types
@@ -154,10 +154,18 @@ void testNewGFB()
   /// dump values
   cout << endl << endl << "beam definition" << endl; RDump::line(15, "-");
   bea->dumpLine();
-  for( int i=0; i<npa; ++i ) {
+  /*for( int i=0; i<npa; ++i ) {
     RFlyer fly = bea->getFlyColl()[i];
+    cout << setw(2) << left << i << " "; 
     fly.line6D();
-  }
+  }*/
+  
+  /// dump chrono
+  chrono = 1000.*double(clock()-chronoStart)/CLOCKS_PER_SEC;
+  cout << endl << "chrono = " << chrono << "ms" << endl; 
+  
+  /// dump values 2! 
+  cout << endl; bea->dumpFlyColl(200);
   
   /// dump iostream
   //iop = cout.precision();
@@ -167,8 +175,16 @@ void testNewGFB()
   chrono = 1000.*double(clock()-chronoStart)/CLOCKS_PER_SEC;
   cout << endl << "chrono = " << chrono << "ms" << endl; 
   
+  /// dump root data folder (new RDump function using getenv)
+  //cout << endl;
+  //cout << getenv("repData") << endl; 
+  //cout << getenv("repNamespaces") << endl; 
+  //cout << getenv("repObjects") << endl; 
+  //cout << RMolecule::dataFolder() << endl;
+  //cout << RMolecule::crossSectionFile() << endl;
   
-  /// beam/gas interaction ratesS
+  
+  /// beam/gas interaction rates
   /// --------------------------------------------------------------------------
   cout << endl << endl << "beam/gas interaction rates" << endl; 
   RDump::line(26, "-");

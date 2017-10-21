@@ -10,7 +10,6 @@
 /// standard library
 #include <ctime>      /// clock
 #include <iostream>
-#include <stdlib.h>   /// getenv
 /// root classes
 /// rep classes
 #include "RDump.h"
@@ -35,8 +34,9 @@ int main()
 {
   /// main intro
   /// --------------------------------------------------------------------------
-  /// computation time recorder start
-  const clock_t timeMainStart = clock();
+  /// clock main
+  const clock_t tstart = clock();   /// main start time
+  float tmain(0);                   /// main time counter
   /// intro header
   cout << endl; cout << "fell main() start" << endl; RDump::line(17);
   
@@ -69,9 +69,9 @@ int main()
   /// --------------------------------------------------------------------------
   /// outro title
   cout << endl; cout << "fell main() end" << endl; RDump::line(35);
-  /// computation time recorder end
-  float timeMainDur(1000*float(clock()-timeMainStart)/CLOCKS_PER_SEC);
-  cout << "<main> computation time = " << timeMainDur << "ms" << endl << endl; 
+  /// main end computation time
+  tmain = 1000.*float(clock()-tstart)/CLOCKS_PER_SEC;
+  cout << "<main> computation time = " << tmain << "ms" << endl << endl; 
   return 0;
 }
 

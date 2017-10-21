@@ -125,21 +125,23 @@ void RFlyer::dump6D(ostream &flux) const
 
 void RFlyer::line6D(ostream &flux) const
 {
-  ios::fmtflags f(flux.flags());    /// save current flux flags
-  streamsize    p(flux.precision());   /// save current flux precision
-  int prec(1);          /// precision
+  /// save previous stream format settings
+  ios::fmtflags f(flux.flags());        /// save current flux flags
+  streamsize    p(flux.precision());    /// save current flux precision
+  /// set new stream format settings
+  flux.flags(ios::right | ios::scientific); /// ajust on right, scientific
+  int prec(1);                              /// precision
+  flux.precision(prec);                     /// set precision 
   int fs(7);            /// format size
   int w(prec+fs);       /// width
-  string sep("  ");     /// separator
+  string sep(" ");     /// separator
   
   /// debug
   //double tst(31415.16171819);
   //flux << f << sep;
   //flux << p << sep;
   
-  flux.precision(prec);                     /// set precision 
-  flux.flags(ios::right | ios::scientific); /// ajust on right, scientific
-  
+  /// stream output
   flux << setw(w) << x()/RUnits::mm << RUnits::mm.getSymbol() << sep;
   flux << setw(w) << y()/RUnits::mm << RUnits::mm.getSymbol() << sep;
   flux << setw(w) << z()/RUnits::mm << RUnits::mm.getSymbol() << sep; 
@@ -148,12 +150,11 @@ void RFlyer::line6D(ostream &flux) const
   flux << setw(w) << pz()/RUnits::MeV_c << RUnits::MeV_c.getSymbol() << sep;
   flux << endl;
   
-  
   /// debug 
   /*flux << tst << sep;
   flux.precision(4);
   flux << tst << sep;
-flux.precision(10);
+  flux.precision(10);
   flux << tst << sep;
   flux.unsetf(ios_base::floatfield);
   flux << tst << sep;
@@ -162,8 +163,9 @@ flux.precision(10);
   flux << tst << sep;
   flux << endl; */
   
+  /// restore previous stream format settings
   flux.flags(f);        /// restore flags
-  flux.precision(p);
+  flux.precision(p);    /// restore precision
   
 }
 

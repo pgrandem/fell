@@ -11,8 +11,9 @@
 /// ----------------------------------------------------------------------------
 /// standard library
 #include <iostream>
-#include <iomanip>  /// fmtflags...
+#include <iomanip>    /// fmtflags...
 #include <cmath>
+#include <stdlib.h>   /// getenv
 #include <string>
 #include <vector>
 /// root classes
@@ -36,19 +37,14 @@ using namespace std;
 /// static attributes
 /// **************************************************************************
 /// fpbar ionisation cs file name
-string RMolecule::rdataFolder(
-  "~/programming/repShared/repData/crossSections/rootData/");  
-string RMolecule::rionCSfName("tfPbarCrossSections.root");
+string RMolecule::rdataFolder( 
+  (string)getenv("repData") + (string)"/crossSections/rootData/" );  
+string RMolecule::rionCSfName( "tfPbarCrossSections.root" );
   
-  
+
+
 /// constructors, destructor, copy 
 /// **************************************************************************
-/*
-RMolecule::RMolecule(string name, string symbol, RAtom* compound, int nbAtoms)
-  : RParticle(name, symbol)
-{ for ( int i=0; i<nbAtoms; ++i ) { rcomposition.push_back(compound[i]); } }
-*/
-
 RMolecule::RMolecule(string const& name, string const& symbol)
   : RParticle(name, symbol), rcomposition(0), rsymbolIsotope("")
 {}
@@ -115,7 +111,12 @@ TGraphErrors* RMolecule::ion_pbarcs_data() const
   const string tfPath = rdataFolder + rionCSfName;  /// static attibutes
   TFile tf(tfPath.c_str(), "READ");       /// open root file
   if( tf.IsZombie() ) { /// test if file is open
-    cout << "  rep warning: Error opening the TFile : " << tfPath << endl;
+    cout << endl;
+    cout << "------------------------------------- " << endl;
+    cout << "rep warning: error opening the TFile: " << endl;
+    cout << tfPath << endl;
+    cout << "------------------------------------- " << endl;
+    g = new TGraphErrors("emptyGraph");
   }
   else {
     //cout << "found the TFile" << endl; 
@@ -213,20 +214,9 @@ double RMolecule::pKfactor(double pN2eq, string const& gauge,
 }
 
 
-/*
-/// fixSymbol
-/// --------------------------------------------------------------------------
-/// Change / enhance the symbol of molecule 
-void Molecule::fixSymbol()
-{
-  if (m_symbol=="H2")   { m_symbol="H_{2}"; }
-  if (m_symbol=="CO2")  { m_symbol="CO_{2}"; }
-  if (m_symbol=="CH4")  { m_symbol="CH_{4}"; }
-  if (m_symbol=="N2")   { m_symbol="N_{2}"; }
-}
-*/
 
-
+/// dump properties
+/// **************************************************************************
 /// dump
 /// --------------------------------------------------------------------------
 /// dump properties
@@ -243,7 +233,9 @@ void RMolecule::dump(ostream &flux) const
   
 }
 
-void RMolecule::dumpLine(ostream &flux) const
+/// dumpLine
+/// --------------------------------------------------------------------------
+  void RMolecule::dumpLine(ostream &flux) const
 {
   ios::fmtflags f(flux.flags());    /// save current flags in flux
   flux.precision(3); flux << scientific; flux << left;
@@ -259,12 +251,14 @@ void RMolecule::dumpLine(ostream &flux) const
   
   flux.flags(f);  /// restore flags
   
-  /// dump atom in molecules
+  /// dump atoms in molecules
   for( int i=0; i<rcomposition.size(); ++i) { 
     flux << "  -> "; rcomposition[i]->dumpLine(flux); 
   }
 }
 
+/// dumpcs
+/// --------------------------------------------------------------------------
 void RMolecule::dumpcs(RFlyer* fly, RMachine* mac, std::ostream &flux) const
 {
   ios::fmtflags f(flux.flags());    /// save current flags in flux

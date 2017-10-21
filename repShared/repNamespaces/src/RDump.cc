@@ -9,8 +9,8 @@
 /// includes and namespaces
 /// ----------------------------------------------------------------------------
 /// standard library
-#include <string>
 #include <iostream>
+#include <string>
 /// rep classes
 /// rep namespaces
 #include "RDump.h"
@@ -24,7 +24,6 @@ namespace RDump {
 /// dump a line
 void line(int width, string const& charac, ostream& flux)
 { for( int i=0; i<width; ++i ) { flux << charac; } flux << endl; }
-
 
 
 } /// end of namespace

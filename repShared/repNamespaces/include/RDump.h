@@ -24,6 +24,8 @@ namespace RDump {
 void line(int width=80, std::string const& charac="*", 
           std::ostream& flux=std::cout);
 
+
 } /// end of namespace 
+
 
 #endif /// RDUMP

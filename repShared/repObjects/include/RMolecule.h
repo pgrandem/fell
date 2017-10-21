@@ -28,13 +28,16 @@ class RMachine;   /// needed for : cross section computation methods
 
 class RMolecule : public RParticle
 {
-  public:
+  /// attributes
+  /// **************************************************************************
+  private:
+  std::vector<RAtom*> rcomposition;   /// [ ] molecule atomic composition
+  std::string         rsymbolIsotope; /// [ ] with isotope version of atoms
+  
   
   /// constructors, destructor, copy 
   /// **************************************************************************
-  /*
-  RMolecule(std::string name, std::string symbol, RAtom* compound, int nbAtoms);
-  */
+  public:
   RMolecule(std::string const& name, std::string const& symbol);
   RMolecule(std::string const& name, std::string const& symbol, 
             std::string const& symbolWithIsotopes);
@@ -47,18 +50,22 @@ class RMolecule : public RParticle
   
   /// accessors
   /// **************************************************************************
-  void addAtom(RAtom* const& atom) { rcomposition.push_back(atom); };
-  
-  std::vector<RAtom*> getComposition() const { return rcomposition; };
-  std::string getSymbolIsotope() const { return rsymbolIsotope; }
+  public:
+  std::vector<RAtom*> getComposition()    const { return rcomposition; };
+  std::string         getSymbolIsotope()  const { return rsymbolIsotope; }
   
   
   
   /// methods
   /// **************************************************************************
+  public:
+  /// addAtom
+  /// --------------------------------------------------------------------------
+  /// add an atom to molecule composition vector
+  void addAtom(RAtom* const& atom) { rcomposition.push_back(atom); };
   
   /// ion_pbarcs
-  /// ----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   /// evaluate pbar cross section for given flyer(ekin)
   /// using ion_pbarcs_data in this class
   ///   -> original graph units: 1.e-20m2 ; keV
@@ -106,26 +113,34 @@ class RMolecule : public RParticle
   								bool verbose=true) const;
   
   /// dump properties
-  /// --------------------------------------------------------------------------
-  /// dump properties
-  virtual void  dump(std::ostream &flux=std::cout) const;
-  void          dumpLine(std::ostream &flux=std::cout) const;
-  virtual void  dumpcs(RFlyer* fly, RMachine* mac, 
-                       std::ostream &flux=std::cout) const;
-  
-  
-  /// attributes
   /// **************************************************************************
-  private:
-  std::vector<RAtom*> rcomposition; /// [ ] molecule atomic composition
-  std::string rsymbolIsotope;             /// [ ] with isotope version of atoms
+  public:
+  /// dump
+  /// --------------------------------------------------------------------------
+  virtual void dump(std::ostream &flux=std::cout) const;
+  /// dumpLine
+  /// --------------------------------------------------------------------------
+  void dumpLine(std::ostream &flux=std::cout) const;
+  /// dumpcs
+  /// --------------------------------------------------------------------------
+  virtual void dumpcs(RFlyer* fly, RMachine* mac, 
+                      std::ostream &flux=std::cout) const;
   
   
   /// static attributes
   /// **************************************************************************
+  private:
   /// fpbar ionisation cs file name
   static std::string rdataFolder;  
-  static std::string rionCSfName;  
+  static std::string rionCSfName;
+  
+  /// static methods
+  /// **************************************************************************
+  public:
+  static void dataFolder(std::string const& data) { rdataFolder = data; } 
+  static std::string dataFolder()       { return rdataFolder; }
+  static std::string crossSectionFile() { return rionCSfName; }
+   
 };
 
 #endif /// RMOLECULE
