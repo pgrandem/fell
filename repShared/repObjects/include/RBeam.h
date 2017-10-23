@@ -40,6 +40,7 @@ class RBeam : public RObject
 	double      rmean[6];   /// [ ] beam dist 6D  "mean"
  	RParticle*  rparType;   /// [ ] beam dist particle type
 	double      rsize[6];   /// [RUnits, RU...] beam dist "size" 6D
+	std::string rtitl[6];   /// [ ] beam dist title ("x, y, z, px, py, pz")
 	std::string rtype[6];		/// [ ] beam dist type (gaussian, flat, etc...) 6D
 	RUnit       runit[6];   /// [ ] units for plotting (func and hist)
 	
@@ -113,7 +114,12 @@ class RBeam : public RObject
  	/// dump methods
   /// **************************************************************************
  	public:
- 	/// dump line
+ 	/// dumpIntegrals
+  /// --------------------------------------------------------------------------
+  /// dump different integral values
+  void dumpIntegrals(std::ostream& flux=std::cout) const;
+  
+  /// dumpLine
   /// --------------------------------------------------------------------------
   /// dump main beam properties on one line
   void dumpLine(std::ostream& flux=std::cout) const;
@@ -123,6 +129,10 @@ class RBeam : public RObject
   /// dump flyer collection x y z px py pz 
   void dumpFlyColl(int modulo=1, std::ostream& flux=std::cout) const;
   
+  /// dumpSize
+  /// --------------------------------------------------------------------------
+  /// dump mean +- size (1sigma) | disTyp for x y z px py pz
+  void dumpSize(std::ostream& flux=std::cout) const;
   
   
  	/// other methods

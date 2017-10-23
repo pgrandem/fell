@@ -69,7 +69,8 @@ void testBeamDist()
   
   /// build the beam
   /// --------------------------------------------------------------------------
-  cout << endl << "building beam" << endl; RDump::line(13, "-");
+  /// dump header
+  RDump::header("building the beam");
   /// beam name
   const string bna="beam name";
   /// number of particles
@@ -89,12 +90,6 @@ void testBeamDist()
   const double pzmu( 100.*RUnits::MeV_c );
   double mea[6] = { xmu, ymu, zmu, pxmu, pymu, pzmu };
   /// beam size
-  //const double dx(  1.*RUnits::mm );
-  //const double dy(  2.*RUnits::mm );
-  //const double dz(  3.*RUnits::mm );
-  //const double dpx( 4.*RUnits::MeV_c );
-  //const double dpy( 5.*RUnits::MeV_c );
-  //const double dpz( 6.*RUnits::MeV_c );
   const double dx(  1.e1*RUnits::mm );
   const double dy(  2.*RUnits::mm );
   const double dz(  5.e1*RUnits::mm );
@@ -110,27 +105,22 @@ void testBeamDist()
   
   /// beam dumpLine
   /// --------------------------------------------------------------------------
-  cout << endl << "beam dumpLine method" << endl; RDump::line(20, "-");
-  bea->dumpLine();
+  //RDump::header("RBeam::dumpLine");
+  //bea->dumpLine();
   /// dump computation time
-  RDump::timer(gtimerstart);
+  //RDump::timer(gtimerstart);
   
   
   /// dump beam sizes
   /// --------------------------------------------------------------------------
-  cout << endl << "dump beam sizes" << endl; RDump::line(15, "-");
-  for( int i=0; i<6; ++i ) { 
-    double size( bea->getSize()[i] );
-    if( i<3 ) cout << i << "  " << size/RUnits::mm << " mm" << endl; 
-    else      cout << i << "  " << size/RUnits::MeV_c << " MeV_c" << endl;  
-  }
+  bea->dumpSize();
   /// dump computation time
   RDump::timer(gtimerstart);
   
   
   /// dump RFlyer collection
   /// --------------------------------------------------------------------------
-  cout << endl << "dump RFlyer collection" << endl; RDump::line(22, "-"); 
+  //7cout << endl << "dump RFlyer collection" << endl; RDump::line(22, "-"); 
   bea->dumpFlyColl(m10);
   /// dump computation time
   RDump::timer(gtimerstart);
@@ -138,16 +128,7 @@ void testBeamDist()
   
   /// dump integrals
   /// --------------------------------------------------------------------------
-  cout << endl << "dump integrals " << endl; RDump::line(14, "-");
-  for( int i=0; i<6; ++i ) {
-    TF1   f( bea->getFunc()[i] );
-    TH1D  h( bea->getHist()[i] );
-    double xM( f.GetXmax() );
-    double xm( f.GetXmin() );
-    cout << "h[i].Int() "  << left << setw(6) << h.Integral()        << " ";
-    cout << "h[i].Int(w) " << left << setw(7) << h.Integral("width") << " ";
-    cout << "f[i].Int() "  << left << setw(8) << f.Integral(xm, xM)  << endl;
-  }
+  bea->dumpIntegrals();
   /// dump computation time
   RDump::timer(gtimerstart);
   

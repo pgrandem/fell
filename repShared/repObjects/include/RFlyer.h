@@ -25,9 +25,8 @@ class RFlyer : public RParticle
   /// attribute
   /// **************************************************************************
   protected:
-  double    rpos6D[6];  /// [ ] x, y, z, px, py, pzpublic :
-  
-  
+  double      rpos6D[6];  /// [ ] 6D position coordinates 
+  std::string rtit6D[6];  /// [ ] 6D position coord title "x, y, z px, py, pz"
   
   
   /// constructor, destructor, copy 

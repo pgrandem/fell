@@ -36,7 +36,8 @@ RBeam::RBeam(string const& name, int npb, RParticle* par, string const dtype[6],
   RObject(name), 
   rflyNumb(npb), 
   rparType(par),
-	rtype{ dtype[0], dtype[1], dtype[2], dtype[3], dtype[4], dtype[5] },
+	rtitl{ "x", "y", "z", "px", "py", "pz" },
+  rtype{ dtype[0], dtype[1], dtype[2], dtype[3], dtype[4], dtype[5] },
   remit{ emit[0], emit[1], emit[2] },
   runit{ RUnits::mm,    RUnits::mm,    RUnits::mm, 
          RUnits::MeV_c, RUnits::MeV_c, RUnits::MeV_c }
@@ -57,6 +58,7 @@ RBeam::RBeam(string const& name, int npb, RParticle* par,
   rflyNumb(npb), 
   rparType(par),
   rmean{ mean[0], mean[1], mean[2], mean[3], mean[4], mean[5] },
+  rtitl{ "x", "y", "z", "px", "py", "pz" },
   rtype{ dtype[0], dtype[1], dtype[2], dtype[3], dtype[4], dtype[5] },
   rsize{ size[0], size[1], size[2], size[3], size[4], size[5] },
   remit{  1., 1., 1. }/*compute emittance ?!!*/,
@@ -91,6 +93,25 @@ RBeam::~RBeam()
 
 /// dump methods
 /// ****************************************************************************
+/// dumpIntegrals
+/// ----------------------------------------------------------------------------
+/// dump different integral values
+void RBeam::dumpIntegrals(std::ostream& flux) const
+{
+  RDump::header("RBeam::dumpIntegrals");
+  for( int i=0; i<6; ++i ) {
+    TF1   f( this->getFunc()[i] );
+    TH1D  h( this->getHist()[i] );
+    double xM( f.GetXmax() );
+    double xm( f.GetXmin() );
+    cout << "h[i].Int()="  << left << setw(6) << h.Integral()        << " ";
+    cout << "h[i].Int(w)=" << left << setw(7) << h.Integral("width") << " ";
+    cout << "f[i].Int()="  << left << setw(8) << f.Integral(xm, xM)  << endl;
+  }
+}
+
+
+
 /// dump line
 /// --------------------------------------------------------------------------
 /// dump main beam properties on one line
@@ -107,6 +128,8 @@ void RBeam::dumpLine(ostream &flux) const
   flux << endl; flux.flags(f);		/// restore flags
 }
 
+
+
 /// dumpFlyColl
 /// --------------------------------------------------------------------------
 /// dump flyer collection x y z px py pz 
@@ -120,6 +143,9 @@ void RBeam::dumpFlyColl(int modulo, ostream& flux) const
   const string sep(" ");
   const int iw(5);
   flux.precision(0);
+  /// dump header
+  RDump::header("RBeam::dumpFlyColl");
+  /// dump stuff
   flux << setw(iw) << "i" << sep;
   flux << setw(10) << " x" << sep;
   flux << setw(10) << " y" << sep;
@@ -128,7 +154,7 @@ void RBeam::dumpFlyColl(int modulo, ostream& flux) const
   flux << setw(13) << " py" << sep;
   flux << setw(13) << " pz";
   flux << "\n";
-  RDump::line(78, "-");
+  //RDump::line(78, "-");
   for( int i=0; i<rflyNumb; ++i ) {
     if( i % modulo == 0 ) {
       flux << setw(iw) << (double)i << sep;
@@ -139,8 +165,35 @@ void RBeam::dumpFlyColl(int modulo, ostream& flux) const
   flux.flags(f);        /// restore flags
   flux.precision(p);    /// restore precision
 }
-  
 
+
+
+/// dumpSize
+/// ----------------------------------------------------------------------------
+/// dump mean +- size (1sigma) | disTyp for x y z px py pz
+void RBeam::dumpSize(std::ostream& flux) const
+{
+  /// save flux previous format settings
+  ios::fmtflags pf(flux.flags());        /// save flux previous flags
+  streamsize    pp(flux.precision());    /// save flux previous precision
+  
+  /// new current flux format
+  const std::string sep("  ");       /// separator
+  const int wid(10);
+  /// dump header
+  RDump::header("RBeam::dumpSize");
+  /// loop over flyers position coordinate
+  for( int i=0; i<6; ++i ) {
+    flux << left << setw(2) << rtitl[i] << sep << rtype[i] << sep;
+    flux << right << rmean[i]/runit[i] << "+-" << rsize[i]/runit[i];
+    flux << runit[i].s() << '\n';
+  }
+  
+  /// restore flux previous format settings
+  flux.flags(pf);        /// restore flux previous flags
+  flux.precision(pp);    /// restore flux previous precision
+}
+  
 
 
 /// other methods

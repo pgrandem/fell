@@ -28,6 +28,7 @@ void line(int width, std::string const& charac, std::ostream& flux)
 { for( int i=0; i<width; ++i ) { flux << charac; } flux << '\n'; }
 
 
+
 /// timer
 /// ----------------------------------------------------------------------------
 /// dump time in ms spent since <timerstart>
@@ -64,6 +65,18 @@ float timerms(clock_t clockstart)
   return 1000.*float(clock()-clockstart)/CLOCKS_PER_SEC;
 }
 
+
+
+/// header
+/// ----------------------------------------------------------------------------
+/// dump header with a header sized line of <-> characters
+/// retruns <header>
+std::string header(std::string const& header, std::ostream& flux)
+{
+  flux << '\n' << header << '\n';
+  line(header.size(), "-", flux);
+  return header;
+}
 
 
 } /// end of namespace

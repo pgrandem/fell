@@ -21,23 +21,28 @@ using namespace std;
 
 /// constructors, destructor, copy 
 /// ****************************************************************************
-RFlyer::RFlyer() : RParticle(), rpos6D{0., 0., 0., 0., 0., 0.}
+RFlyer::RFlyer() : RParticle(), 
+  rpos6D{0., 0., 0., 0., 0., 0.}, 
+  rtit6D{"x", "y", "z", "px", "py", "pz"}
 {}
 
-RFlyer::RFlyer(string const& name, string const& symbol, 
-               double charge, double mass, double beta) : 
+RFlyer::RFlyer( string const& name, string const& symbol, 
+                double charge, double mass, double beta   ) : 
   RParticle(name, symbol, charge, mass), 
-  rpos6D{0., 0., 0., 0., 0., betaToMomentum(beta, mass)}
+  rpos6D{0., 0., 0., 0., 0., betaToMomentum(beta, mass)},
+  rtit6D{"x", "y", "z", "px", "py", "pz"}
 {}
 
 RFlyer::RFlyer(RParticle* const& par, double beta) : 
   RParticle( par->getName(),par->getSymbol(),par->getCharge(),par->getMass() ),
-  rpos6D{0., 0., 0., 0., 0., betaToMomentum(beta, par->getMass())}
+  rpos6D{0., 0., 0., 0., 0., betaToMomentum(beta, par->getMass())},
+  rtit6D{"x", "y", "z", "px", "py", "pz"}
 {}
 
 RFlyer::RFlyer(RParticle* const& par, double const x[6]) : 
   RParticle( par->getName(),par->getSymbol(),par->getCharge(),par->getMass() ),
-  rpos6D{ x[0], x[1], x[2], x[3], x[4], x[5] }
+  rpos6D{ x[0], x[1], x[2], x[3], x[4], x[5] },
+  rtit6D{"x", "y", "z", "px", "py", "pz"}
 {}
 
 

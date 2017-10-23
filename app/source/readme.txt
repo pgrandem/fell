@@ -8,11 +8,22 @@
 
 
 
+22/10/2017
+/// ----------------------------------------------------------------------------
+Lots of changes undocumented since last update of this file:
+Pierre, bad boy, really bad boy...
+- working back on RBeam class
+- implementation of a global variable <gtimer>
+    notion of global/external linkage ... with <extern>
+
+
 21/10/2017
 /// ----------------------------------------------------------------------------
 Lots of changes undocumented since last update of this file:
 Pierre, bad boy, really bad boy...
-
+- working back on RBeam class
+- implementation of a global variable <gtimer>
+    notion of global/external linkage ... with <extern>
 
 
 20/09/2017
