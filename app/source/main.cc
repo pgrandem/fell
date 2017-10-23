@@ -10,6 +10,7 @@
 /// standard library
 #include <ctime>      /// clock_t, clock(), CLOCKS_PER_SEC
 #include <iostream>
+//#include <stdlib.h>   /// getenv
 /// root classes
 /// rep classes
 #include "RDump.h"
@@ -24,7 +25,12 @@ using namespace std;
 
 /// define initialized const global variable (external linkage)
 /// ****************************************************************************
-extern const clock_t gtimerstart(clock()); /// main timer start 
+/// main timer
+extern const clock_t gtimerstart(clock());
+/// results folder
+extern const std::string resultFolder("/home/rep/programming/fell/app/results");
+/// data folder
+
 
 /// prototypes
 /// ****************************************************************************

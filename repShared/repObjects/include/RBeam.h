@@ -114,7 +114,12 @@ class RBeam : public RObject
  	/// dump methods
   /// **************************************************************************
  	public:
- 	/// dumpIntegrals
+ 	/// dumpFlyColl
+  /// --------------------------------------------------------------------------
+  /// dump flyer collection x y z px py pz 
+  void dumpFlyColl(int modulo=1, std::ostream& flux=std::cout) const;
+  
+  /// dumpIntegrals
   /// --------------------------------------------------------------------------
   /// dump different integral values
   void dumpIntegrals(std::ostream& flux=std::cout) const;
@@ -124,15 +129,18 @@ class RBeam : public RObject
   /// dump main beam properties on one line
   void dumpLine(std::ostream& flux=std::cout) const;
   
-  /// dumpFlyColl
-  /// --------------------------------------------------------------------------
-  /// dump flyer collection x y z px py pz 
-  void dumpFlyColl(int modulo=1, std::ostream& flux=std::cout) const;
-  
   /// dumpSize
   /// --------------------------------------------------------------------------
-  /// dump mean +- size (1sigma) | disTyp for x y z px py pz
+  /// dump mean +- size | disTyp for x y z px py pz
   void dumpSize(std::ostream& flux=std::cout) const;
+  
+  /// pdf6D
+  /// --------------------------------------------------------------------------
+  /// save the beam 6 coordinates distribution function/histogram in pdf
+  /// returns pdf path
+  std::string pdf6D() const;
+  
+  
   
   
  	/// other methods
@@ -174,7 +182,7 @@ class RBeam : public RObject
   /// look RMath::rh1
   ///   - nbin | bin number in histogram
   void hist(int const nbin);
-	
+  
   /// sizeEmit
   /// --------------------------------------------------------------------------
   /// set rsize from remit and machine parameters

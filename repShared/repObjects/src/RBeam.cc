@@ -93,43 +93,6 @@ RBeam::~RBeam()
 
 /// dump methods
 /// ****************************************************************************
-/// dumpIntegrals
-/// ----------------------------------------------------------------------------
-/// dump different integral values
-void RBeam::dumpIntegrals(std::ostream& flux) const
-{
-  RDump::header("RBeam::dumpIntegrals");
-  for( int i=0; i<6; ++i ) {
-    TF1   f( this->getFunc()[i] );
-    TH1D  h( this->getHist()[i] );
-    double xM( f.GetXmax() );
-    double xm( f.GetXmin() );
-    cout << "h[i].Int()="  << left << setw(6) << h.Integral()        << " ";
-    cout << "h[i].Int(w)=" << left << setw(7) << h.Integral("width") << " ";
-    cout << "f[i].Int()="  << left << setw(8) << f.Integral(xm, xM)  << endl;
-  }
-}
-
-
-
-/// dump line
-/// --------------------------------------------------------------------------
-/// dump main beam properties on one line
-void RBeam::dumpLine(ostream &flux) const
-{
-	
-	ios::fmtflags f(flux.flags());	/// save current flags in flux
-  
-  flux << this->getName() << " | ";
-  flux << "npb=" << this->getN() << " | ";
-  //flux.precision(2); flux << scientific;
-  //flux << "flyer: " << this->getFlyer()->getSymbol() << " | ";
-  //flux << "beta=" << this->getFlyer()->beta() << " | ";
-  flux << endl; flux.flags(f);		/// restore flags
-}
-
-
-
 /// dumpFlyColl
 /// --------------------------------------------------------------------------
 /// dump flyer collection x y z px py pz 
@@ -168,7 +131,44 @@ void RBeam::dumpFlyColl(int modulo, ostream& flux) const
 
 
 
-/// dumpSize
+//// dumpIntegrals
+/// ----------------------------------------------------------------------------
+/// dump different integral values
+void RBeam::dumpIntegrals(std::ostream& flux) const
+{
+  RDump::header("RBeam::dumpIntegrals");
+  for( int i=0; i<6; ++i ) {
+    TF1   f( this->getFunc()[i] );
+    TH1D  h( this->getHist()[i] );
+    double xM( f.GetXmax() );
+    double xm( f.GetXmin() );
+    cout << "h[i].Int()="  << left << setw(6) << h.Integral()        << " ";
+    cout << "h[i].Int(w)=" << left << setw(7) << h.Integral("width") << " ";
+    cout << "f[i].Int()="  << left << setw(8) << f.Integral(xm, xM)  << endl;
+  }
+}
+
+
+
+/// dumpLine
+/// --------------------------------------------------------------------------
+/// dump main beam properties on one line
+void RBeam::dumpLine(ostream &flux) const
+{
+	
+	ios::fmtflags f(flux.flags());	/// save current flags in flux
+  
+  flux << this->getName() << " | ";
+  flux << "npb=" << this->getN() << " | ";
+  //flux.precision(2); flux << scientific;
+  //flux << "flyer: " << this->getFlyer()->getSymbol() << " | ";
+  //flux << "beta=" << this->getFlyer()->beta() << " | ";
+  flux << endl; flux.flags(f);		/// restore flags
+}
+
+
+
+// dumpSize
 /// ----------------------------------------------------------------------------
 /// dump mean +- size (1sigma) | disTyp for x y z px py pz
 void RBeam::dumpSize(std::ostream& flux) const
@@ -194,6 +194,30 @@ void RBeam::dumpSize(std::ostream& flux) const
   flux.precision(pp);    /// restore flux previous precision
 }
   
+
+/// pdf6D
+/// ----------------------------------------------------------------------------
+/// save the beam 6 coordinates distribution function/histogram in pdf
+/// returns pdf path
+std::string RBeam::pdf6D() const
+{
+  RDump::header("RBeam::pdf6D");
+  TCanvas* can(RDump::canzenbook3("can", "pdf6D"));
+  const std::string pdf(RDump::pathNow(this->getName()+"_dist.pdf"));
+  const std::string pdo(pdf+"[");
+  const std::string pdc(pdf+"]");
+  can->Print(pdo.c_str());
+  for( int i=0; i<6; ++i ) {
+    this->getFunc()[i].Draw(); 
+    this->getHist()[i].Draw("same"); 
+    can->Print(pdf.c_str()); 
+  }
+  can->Print(pdc.c_str());
+  delete can; can=0;
+  return pdf;
+}
+
+
 
 
 /// other methods

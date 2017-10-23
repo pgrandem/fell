@@ -12,6 +12,8 @@
 #include <iostream>
 #include <fstream>
 //#include <iomanip>
+/// system
+#include <sys/stat.h>
 /// root classes
 #include "TAxis.h"
 #include "TCanvas.h"
@@ -49,9 +51,7 @@ using namespace std;
 
 /// forward declaration for const global variable defined elsewhere
 /// ****************************************************************************
-extern const clock_t gtimerstart; /// main timer start 
-
-
+extern const clock_t gtimerstart; /// main timer start
 
 /// couple beams, cycles and interactions
 /// ****************************************************************************
@@ -72,15 +72,14 @@ void testBeamDist()
   /// dump header
   RDump::header("building the beam");
   /// beam name
-  const string bna="beam name";
+  const string bna="testbeam";
   /// number of particles
   const int npa=1e4;
   const int m10=npa/10; /// modulo10 : to plot 10 values of npa
   /// particles 
   RParticle* par = (RParticle*)RParticleList::hpbar();
   /// beam 6D dist type
-  //string dis[6] = {"flat", "gauss", "gauss", "flat", "flat", "flat"};
-  string dis[6] = {"gauss", "gauss", "gauss", "gauss", "gauss", "gauss"};
+  string dis[6] = {"gauss", "flat", "gauss", "flat", "flat", "gauss"};
   /// beam 6D dist mean
   const double xmu(  0.*RUnits::mm );
   const double ymu(  0.*RUnits::mm );
@@ -105,10 +104,10 @@ void testBeamDist()
   
   /// beam dumpLine
   /// --------------------------------------------------------------------------
-  //RDump::header("RBeam::dumpLine");
-  //bea->dumpLine();
+  RDump::header("RBeam::dumpLine");
+  bea->dumpLine();
   /// dump computation time
-  //RDump::timer(gtimerstart);
+  RDump::timer(gtimerstart);
   
   
   /// dump beam sizes
@@ -120,7 +119,6 @@ void testBeamDist()
   
   /// dump RFlyer collection
   /// --------------------------------------------------------------------------
-  //7cout << endl << "dump RFlyer collection" << endl; RDump::line(22, "-"); 
   bea->dumpFlyColl(m10);
   /// dump computation time
   RDump::timer(gtimerstart);
@@ -132,32 +130,31 @@ void testBeamDist()
   /// dump computation time
   RDump::timer(gtimerstart);
   
+  /// dump date
+  /// --------------------------------------------------------------------------
+  //RDump::header("dump date");
+  //cout << RDump::date() << endl;
+  
+
+  /// check folder
+  /// --------------------------------------------------------------------------
+  //RDump::header("check folder");
+  //const string str("../results/check");
+  //cout << RDump::checkFolder(str) << endl;
+  //cout << RDump::buildFolder(str) << endl;
+  //cout << RDump::checkFolder(str) << endl;
+  //cout << endl;
+  //cout << RDump::pathNow() << endl;
+  //cout << endl;
+  //std::string res("/home/rep/programming/fell/app/results");
+  //std::cout << res << "   " << RDump::checkFolder(res) << endl;
+  //std::string tod(res + "/" + RDump::date());
+  //std::cout << tod << "   " << RDump::checkFolder(tod) << endl;
+  
   
   /// plot beam distributions
   /// --------------------------------------------------------------------------
-  cout << endl << "plot functions and distributions in a pdf file" << endl;
-  RDump::line(46, "-");
-  /// output pdf/canvas/plot parameters
-  string pdfN     = "../results/20171021/testBeam.pdf";
-  string pdfOpen  = pdfN + "[";
-  string pdfClose = pdfN + "]";
-  double cw(864); /// can width  = 0.95 * 1920/2
-  double ch(486); /// can height = 0.95 * 1080/2 
-  TCanvas* can = new TCanvas("can", "testBeamPDFoutput",cw, ch);
-  can->SetWindowSize( cw+(cw-can->GetWw()), ch+(ch-can->GetWh()) );
-  /// plot dist in pdf
-  can->Print(pdfOpen.c_str()); 
-  for( int i=0; i<6; ++i ) { 
-    /// func drawing options
-    bea->getFunc()[i].Draw(); 
-    /// hist drawing options
-    //bea->getHist()[i].Draw("hist"); 
-    bea->getHist()[i].Draw("same"); 
-    //bea->getHist()[i].SetLineWidth(2); 
-    /// canvas print
-    can->Print(pdfN.c_str()); 
-  }
-  can->Print(pdfClose.c_str()); 
+  bea->pdf6D();
   /// dump computation time
   RDump::timer(gtimerstart);
   
@@ -165,7 +162,7 @@ void testBeamDist()
   /// function outro
   /// --------------------------------------------------------------------------
   /// outro header
-  cout << endl; cout << "testBeamDist() function end " << endl; RDump::line();
+  RDump::header("testBeamDist() function end");
   /// timer
   RDump::timer(gtimerstart);
 }
