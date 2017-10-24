@@ -56,16 +56,17 @@ extern const clock_t gtimerstart; /// main timer start
 /// couple beams, cycles and interactions
 /// ****************************************************************************
 
-/// testBeamDist() - 20170921
+/// testBeamDist - 20170921
 /// ----------------------------------------------------------------------------
 /// test beam distributions with new flyers definition
 void testBeamDist()
 {
   /// function intro
   /// --------------------------------------------------------------------------
-  cout << endl;   cout << "testBeamDist() - 21/10/2017" << endl;
-  RDump::line();  cout << "test beam distributions function." << endl;
+  RDump::title("testBeamDist - 21/10/2017");
+  cout << "test beam distributions function" << endl;
   RDump::timer(gtimerstart);
+  
   
   /// build the beam
   /// --------------------------------------------------------------------------
@@ -75,26 +76,28 @@ void testBeamDist()
   const string bna="testbeam";
   /// number of particles
   const int npa=1e4;
-  const int m10=npa/10; /// modulo10 : to plot 10 values of npa
   /// particles 
   RParticle* par = (RParticle*)RParticleList::hpbar();
   /// beam 6D dist type
   string dis[6] = {"gauss", "flat", "gauss", "flat", "flat", "gauss"};
+  /// beam units
+  RUnit mm(RUnits::mm); 
+  RUnit Mc(RUnits::MeV_c); 
   /// beam 6D dist mean
-  const double xmu(  0.*RUnits::mm );
-  const double ymu(  0.*RUnits::mm );
-  const double zmu(  0.*RUnits::mm );
-  const double pxmu( 0.*RUnits::MeV_c );
-  const double pymu( 0.*RUnits::MeV_c );
-  const double pzmu( 100.*RUnits::MeV_c );
+  const double xmu(0.*mm); 
+  const double ymu(0.*mm); 
+  const double zmu(0.*mm); 
+  const double pxmu(0.*Mc); 
+  const double pymu(0.*Mc); 
+  const double pzmu(100.*Mc);
   double mea[6] = { xmu, ymu, zmu, pxmu, pymu, pzmu };
   /// beam size
-  const double dx(  1.e1*RUnits::mm );
-  const double dy(  2.*RUnits::mm );
-  const double dz(  5.e1*RUnits::mm );
-  const double dpx( 1.e-4*pzmu );
-  const double dpy( 2.e-4*pzmu );
-  const double dpz( 5.e-4*pzmu );
+  const double dx(1.e1*mm); 
+  const double dy(2.*mm);
+  const double dz(5.e1*mm);
+  const double dpx(1.e-4*pzmu);
+  const double dpy(2.e-4*pzmu);
+  const double dpz(5.e-4*pzmu);
   double siz[6] = { dx, dy, dz, dpx, dpy, dpz };
   /// instantiate by beam size OR by (beam emittance AND machine parameters)
   RBeam* bea = new RBeam(bna, npa, par, dis, mea, siz);
@@ -119,37 +122,22 @@ void testBeamDist()
   
   /// dump RFlyer collection
   /// --------------------------------------------------------------------------
-  bea->dumpFlyColl(m10);
+  bea->dumpFlyColl(npa/10);   /// modulo10 : to plot 10 values of npa
   /// dump computation time
   RDump::timer(gtimerstart);
   
   
-  /// dump integrals
+  /// dump beam dist integrals
   /// --------------------------------------------------------------------------
   bea->dumpIntegrals();
   /// dump computation time
   RDump::timer(gtimerstart);
   
+  
   /// dump date
   /// --------------------------------------------------------------------------
-  //RDump::header("dump date");
-  //cout << RDump::date() << endl;
-  
-
-  /// check folder
-  /// --------------------------------------------------------------------------
-  //RDump::header("check folder");
-  //const string str("../results/check");
-  //cout << RDump::checkFolder(str) << endl;
-  //cout << RDump::buildFolder(str) << endl;
-  //cout << RDump::checkFolder(str) << endl;
-  //cout << endl;
-  //cout << RDump::pathNow() << endl;
-  //cout << endl;
-  //std::string res("/home/rep/programming/fell/app/results");
-  //std::cout << res << "   " << RDump::checkFolder(res) << endl;
-  //std::string tod(res + "/" + RDump::date());
-  //std::cout << tod << "   " << RDump::checkFolder(tod) << endl;
+  RDump::header("dump date");
+  cout << RDump::date() << endl;
   
   
   /// plot beam distributions
@@ -161,8 +149,8 @@ void testBeamDist()
   
   /// function outro
   /// --------------------------------------------------------------------------
-  /// outro header
-  RDump::header("testBeamDist() function end");
+  /// outro title
+  std::string str = RDump::title("testBeamDist() function end");
   /// timer
   RDump::timer(gtimerstart);
 }

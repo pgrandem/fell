@@ -182,11 +182,18 @@ void RBeam::dumpSize(std::ostream& flux) const
   const int wid(10);
   /// dump header
   RDump::header("RBeam::dumpSize");
+  /// get rtitl[i] string max size
+  int max(0);
+  for( int i=0; i<6; ++i ) {
+    if( rtype[i].size()>max ) { max=rtype[i].size(); }
+  }
+  //cout << max yy 
   /// loop over flyers position coordinate
   for( int i=0; i<6; ++i ) {
-    flux << left << setw(2) << rtitl[i] << sep << rtype[i] << sep;
+    flux << left  << setw(2) << rtitl[i] << sep;
+    flux << right << setw(max) << rtype[i] << sep;
     flux << right << rmean[i]/runit[i] << "+-" << rsize[i]/runit[i];
-    flux << runit[i].s() << '\n';
+    flux << left << setw(6) << runit[i].s() << '\n';
   }
   
   /// restore flux previous format settings

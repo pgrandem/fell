@@ -199,6 +199,18 @@ float timerms(clock_t clockstart)
 
 
 
+/// title
+/// ----------------------------------------------------------------------------
+/// dump <text> underlined with a <width>-long line of <symbol> in <flux>
+/// returns title
+std::string title(const std::string& text, int width, 
+                  const std::string& symbol, std::ostream& flux)
+{
+  flux << "\n" << text << "\n";
+  RDump::line(width, symbol, flux);
+  //std::string str(text);
+  return (std::string)text;
+}
 
 
 

@@ -44,7 +44,7 @@ int main()
   /// main intro
   /// --------------------------------------------------------------------------
   /// intro header
-  cout << endl; cout << "fell main() start" << endl; RDump::line(17);
+  //RDump::header("fell main");
   
   
   /// main : here it goes!
@@ -58,11 +58,11 @@ int main()
   //ecoolplot();	/// from data folder
   //elenaRate();
   //testRutherfordScattering();
-	//testMacFly();
+  //testMacFly();
   //testGas();
   //testval_csion_pbarGas();
   //plotIon_pbarcs(/*today*/"20170712");
-	//testMolecule();
+  //testMolecule();
   //listParticles();
   //testAtom();
   //testParticle();
@@ -74,9 +74,9 @@ int main()
   /// main outro
   /// --------------------------------------------------------------------------
   /// outro title
-  cout << endl; cout << "fell main() end" << endl; RDump::line(15);
+  //RDump::header("fell main end");
   /// main end computation time
-  RDump::timer(gtimerstart);
+  //RDump::timer(gtimerstart);
   /// main return
   return 0;
 }

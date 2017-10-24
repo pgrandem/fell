@@ -51,7 +51,8 @@ std::string date(std::string const& format="%Y%m%d");
 /// ----------------------------------------------------------------------------
 /// dump header with a header sized line of <-> characters
 /// retruns the title
-std::string header(std::string const& header, std::ostream& flux=std::cout);
+std::string header(std::string const& header="header", 
+                   std::ostream& flux=std::cout);
 
 /// line
 /// ----------------------------------------------------------------------------
@@ -75,6 +76,13 @@ float timer(clock_t timerstart, std::ostream &flux=std::cout);
 /// ----------------------------------------------------------------------------
 /// returns time in ms spent since <clockstart>
 float timerms(clock_t timerstart);
+
+/// title
+/// ----------------------------------------------------------------------------
+/// dump <text> underlined with a <width>-long line of <symbol> in <flux>
+/// returns title
+std::string title(const std::string& text="title", int width=80, 
+                  const std::string& symbol="*", std::ostream& flux=std::cout);
 
 
 

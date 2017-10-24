@@ -8,6 +8,15 @@
 
 
 
+24/10/2017
+/// ----------------------------------------------------------------------------
+Implementation of new methods:
+  - RDump::date
+  - RDump::buildFolder
+  - RDump::pathNow
+  - Beam::pdf6D
+
+
 22/10/2017
 /// ----------------------------------------------------------------------------
 Lots of changes undocumented since last update of this file:
