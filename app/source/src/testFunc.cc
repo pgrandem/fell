@@ -56,6 +56,124 @@ extern const clock_t gtimerstart; /// main timer start
 /// couple beams, cycles and interactions
 /// ****************************************************************************
 
+/// testBeamEmit() - 20171024
+/// ----------------------------------------------------------------------------
+/// test beam definition with emittance
+void testBeamEmit()
+{
+  /// function intro
+  /// --------------------------------------------------------------------------
+  RDump::title("testBeamEmit - 21/10/2017");
+  cout << "test beam definition with emittance" << endl;
+  RDump::timer(gtimerstart);
+  
+  
+  /// machine definition
+  /// --------------------------------------------------------------------------
+  /// machine name
+  std::string mna("testMachine");
+  /// dump header
+  RDump::header("machine constructor: \"" + mna + "\"");
+  /// machine constructor
+  RMachine mac(mna);
+  /// set machine
+  mac.acceptance(67.*RUnits::mm);
+  mac.length(30.*RUnits::m);
+  mac.twissBetaX(3.*RUnits::m);
+  mac.twissBetaY(1.*RUnits::m);
+  /// dump machine
+  mac.dump();
+  
+  /// build beam with ref momentum, emittance and machine parameters
+  /// --------------------------------------------------------------------------
+  /// beam name
+  const string bna="beam_emit";
+  /// number of particles
+  const int npa=1e4;
+  /// particles 
+  RParticle* par = (RParticle*)RParticleList::hpbar();
+  /// beam 6D dist type
+  string dis[6] = {"gauss", "flat", "gauss", "flat", "flat", "gauss"};
+  /// beam units
+  RUnit mm(RUnits::mm); 
+  RUnit Mc(RUnits::MeV_c); 
+  ///
+  const double xmu(0.*mm); 
+  const double ymu(0.*mm); 
+  const double zmu(0.*mm); 
+  const double pxmu(0.*Mc); 
+  const double pymu(0.*Mc); 
+  const double pzmu(100.*Mc);
+  double mea[6] = { xmu, ymu, zmu, pxmu, pymu, pzmu };
+  /// beam size
+  const double dx(1.e1*mm); 
+  const double dy(2.*mm);
+  const double dz(5.e1*mm);
+  const double dpx(1.e-4*pzmu);
+  const double dpy(2.e-4*pzmu);
+  const double dpz(5.e-4*pzmu);
+  double siz[6] = { dx, dy, dz, dpx, dpy, dpz };
+  /// dump header
+  RDump::header("beam constructor: \"" + bna + "\"");
+  /// instantiate by beam size OR by (beam emittance AND machine parameters)
+  RBeam* bea = new RBeam(bna, npa, par, dis, mea, siz);
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  
+  /// beam dumpLine
+  /// --------------------------------------------------------------------------
+  //RDump::header("RBeam::"+bea->getName()+"->dumpLine");
+  //RDump::header("RBeam("+bea->getName()+")::dumpLine");
+  RDump::header("beam dumpLine method: \"" + bna + "\"");
+  bea->dumpLine();
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  /// dump beam sizes
+  /// --------------------------------------------------------------------------
+  bea->dumpSize();
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  /// dump RFlyer collection
+  /// --------------------------------------------------------------------------
+  bea->dumpFlyColl(npa/10);   /// modulo10 : to plot 10 values of npa
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  /// dump beam dist integrals
+  /// --------------------------------------------------------------------------
+  bea->dumpIntegrals();
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  /// dump date
+  /// --------------------------------------------------------------------------
+  RDump::header("dump date");
+  cout << RDump::date() << endl;
+  
+  /// plot beam distributions
+  /// --------------------------------------------------------------------------
+  bea->pdf6D();
+  /// dump computation time
+  RDump::timer(gtimerstart);
+  
+  
+  /// function outro
+  /// --------------------------------------------------------------------------
+  /// outro title
+  std::string str = RDump::title("testBeamEmit() function end");
+  /// timer
+  RDump::timer(gtimerstart);
+}
+
+
+
+
+
+
+
 /// testBeamDist - 20170921
 /// ----------------------------------------------------------------------------
 /// test beam distributions with new flyers definition
@@ -68,12 +186,10 @@ void testBeamDist()
   RDump::timer(gtimerstart);
   
   
-  /// build the beam
+  /// build the explicit beam
   /// --------------------------------------------------------------------------
-  /// dump header
-  RDump::header("building the beam");
   /// beam name
-  const string bna="testbeam";
+  const string bna="beam_explicit";
   /// number of particles
   const int npa=1e4;
   /// particles 
@@ -99,6 +215,8 @@ void testBeamDist()
   const double dpy(2.e-4*pzmu);
   const double dpz(5.e-4*pzmu);
   double siz[6] = { dx, dy, dz, dpx, dpy, dpz };
+  /// dump header
+  RDump::header("beam constructor: \"" + bna + "\"");
   /// instantiate by beam size OR by (beam emittance AND machine parameters)
   RBeam* bea = new RBeam(bna, npa, par, dis, mea, siz);
   /// dump computation time
@@ -107,11 +225,12 @@ void testBeamDist()
   
   /// beam dumpLine
   /// --------------------------------------------------------------------------
-  RDump::header("RBeam::dumpLine");
+  //RDump::header("RBeam::"+bea->getName()+"->dumpLine");
+  //RDump::header("RBeam("+bea->getName()+")::dumpLine");
+  RDump::header("RBeam::dumpLine \""+bea->getName()+"\"");
   bea->dumpLine();
   /// dump computation time
   RDump::timer(gtimerstart);
-  
   
   /// dump beam sizes
   /// --------------------------------------------------------------------------
@@ -119,13 +238,11 @@ void testBeamDist()
   /// dump computation time
   RDump::timer(gtimerstart);
   
-  
   /// dump RFlyer collection
   /// --------------------------------------------------------------------------
   bea->dumpFlyColl(npa/10);   /// modulo10 : to plot 10 values of npa
   /// dump computation time
   RDump::timer(gtimerstart);
-  
   
   /// dump beam dist integrals
   /// --------------------------------------------------------------------------
@@ -133,12 +250,10 @@ void testBeamDist()
   /// dump computation time
   RDump::timer(gtimerstart);
   
-  
   /// dump date
   /// --------------------------------------------------------------------------
   RDump::header("dump date");
   cout << RDump::date() << endl;
-  
   
   /// plot beam distributions
   /// --------------------------------------------------------------------------

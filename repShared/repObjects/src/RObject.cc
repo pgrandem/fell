@@ -47,9 +47,9 @@ RObject::RObject(RObject const& objToCopy)
 /// ----------------------------------------------------------------------------
 void RObject::dump(ostream &flux) const
 {
-  flux << "RObject dump method" << endl; 
-  RDump::line(19, "-", flux); 
-  flux << "name : " << getName() << endl; 
+  RDump::header("RObject::dump \"" + this->getName() + "\"");
+  //RDump::line(19, "-", flux); 
+  flux << "name : " << this->getName() << endl; 
 }
 
 

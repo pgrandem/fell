@@ -107,7 +107,7 @@ void RBeam::dumpFlyColl(int modulo, ostream& flux) const
   const int iw(5);
   flux.precision(0);
   /// dump header
-  RDump::header("RBeam::dumpFlyColl");
+  RDump::header("RBeam::dumpFlyColl \"" + this->getName() + "\"");
   /// dump stuff
   flux << setw(iw) << "i" << sep;
   flux << setw(10) << " x" << sep;
@@ -136,7 +136,7 @@ void RBeam::dumpFlyColl(int modulo, ostream& flux) const
 /// dump different integral values
 void RBeam::dumpIntegrals(std::ostream& flux) const
 {
-  RDump::header("RBeam::dumpIntegrals");
+  RDump::header("RBeam::dumpIntegrals \"" + this->getName() + "\"");
   for( int i=0; i<6; ++i ) {
     TF1   f( this->getFunc()[i] );
     TH1D  h( this->getHist()[i] );
@@ -181,7 +181,7 @@ void RBeam::dumpSize(std::ostream& flux) const
   const std::string sep("  ");       /// separator
   const int wid(10);
   /// dump header
-  RDump::header("RBeam::dumpSize");
+  RDump::header("RBeam::dumpSize \"" + this->getName() + "\"");
   /// get rtitl[i] string max size
   int max(0);
   for( int i=0; i<6; ++i ) {
@@ -208,7 +208,7 @@ void RBeam::dumpSize(std::ostream& flux) const
 /// returns pdf path
 std::string RBeam::pdf6D() const
 {
-  RDump::header("RBeam::pdf6D");
+  RDump::header("RBeam::pdf6D \"" + this->getName() + "\"");
   TCanvas* can(RDump::canzenbook3("can", "pdf6D"));
   const std::string pdf(RDump::pathNow(this->getName()+"_dist.pdf"));
   const std::string pdo(pdf+"[");

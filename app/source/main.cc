@@ -49,7 +49,8 @@ int main()
   
   /// main : here it goes!
   /// --------------------------------------------------------------------------
-  testBeamDist();
+  testBeamEmit();
+  //testBeamDist();
   //testNewGFB();
   //testRMath();
   //testNewFlyers();

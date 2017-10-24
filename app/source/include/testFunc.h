@@ -25,7 +25,12 @@
 /// couple beams, cycles and interactions
 /// ****************************************************************************
 
-//// testBeamDist() - 20171021
+/// testBeamEmit() - 20171024
+/// ----------------------------------------------------------------------------
+/// test beam definition with emittance
+void testBeamEmit();
+
+/// testBeamDist() - 20171021
 /// ----------------------------------------------------------------------------
 /// test beam distributions
 void testBeamDist();
